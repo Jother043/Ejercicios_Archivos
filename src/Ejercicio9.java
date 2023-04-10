@@ -8,7 +8,9 @@ public class Ejercicio9 {
 
     public static void main(String[] args) {
 
-        File archivo = new File("C:\\Users\\Kingo\\Desktop\\matriculas.txt");
+        //Declaro el archivo que voy a leer
+        File archivo = new File("C:\\Users\\Jmiguel-Laptop\\Desktop\\matriculas.txt");
+        File archivo2 = new File("C:\\Users\\Jmiguel-Laptop\\Desktop\\MatriculasCorrectas.txt");
         //Si el archivo no existe, se crea.
         if (!archivo.exists()) {
             try {
@@ -21,16 +23,27 @@ public class Ejercicio9 {
         } else {
             System.out.println("El archivo ya existe");
         }
+        if (!archivo2.exists()) {
+            try {
+                archivo2.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } finally {
+                System.out.println("El archivo se ha creado correctamente");
+            }
+        } else {
+            System.out.println("El archivo ya existe");
+        }
+        Pattern patron = Pattern.compile("^(\\d{4}\\s[^aeiouAEIOU\\d\\W_]{3})$");
+        //^\p{L}+\s\d{4}-([A-Z&&[^AEIOU]]{3})$
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo));
+             BufferedWriter fw = new BufferedWriter(new FileWriter(archivo2))){
 
-        try {
-            Pattern patron = Pattern.compile("^[1-9]\\s[1-9]\\s[1-9]\\s[1-9]\\s[A-Z]\\s[A-Z]\\s[A-Z]$");
-            BufferedReader br = new BufferedReader(new FileReader(archivo));
-            FileWriter fw = new FileWriter("C:\\Users\\Kingo\\Desktop\\MatriculasCorrectas.txt");
             String linea;
             while ((linea = br.readLine()) != null) {
                 Matcher m = patron.matcher(linea);
-                if (m.matches()) {
-                    fw.write(linea);
+                if (m.find()) {
+                    fw.write(m.group(1));
                     System.out.println("La linea cumple con el formato matricula" + ": " + linea);
                 }else {
                     System.out.println("La linea no cumple con el formato matricula" + ": " + linea);

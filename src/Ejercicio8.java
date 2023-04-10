@@ -1,4 +1,7 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -6,7 +9,7 @@ public class Ejercicio8 {
     public static void main(String[] args) {
 
         //Declaro el archivo que voy a leer.
-        File archivo = new File("C:\\Users\\Kingo\\Desktop\\archivo.txt");
+        File archivo = new File("C:\\Users\\Jmiguel-Laptop\\Desktop\\archivo.txt");
         //Si el archivo no existe, se crea.
         if (!archivo.exists()) {
             try {
@@ -28,8 +31,9 @@ public class Ejercicio8 {
          * \\s indica que puede contener espacios.
          * $ indica el final de la cadena.
          * Pattern. compile() compila el patron.
+         * \\p{L} indica que puede contener letras en español.
          */
-        Pattern patron = Pattern.compile("^[a-zA-Z]{2,}\\s[a-zA-Z]{2,}\\s[a-zA-Z]{2,}$");
+        Pattern patron = Pattern.compile("^\\p{L}{2,}\\s\\p{L}{2,}\\s\\p{L}{2,}\\s(0?[1-9]|[1-9][0-9])$");
         /*
          *Declaro el patron que voy a utilizar para validar la edad usando expresiones regulares.
          * ^ indica el inicio de la cadena.
@@ -39,33 +43,33 @@ public class Ejercicio8 {
          * $ indica el final de la cadena.
          * Pattern. compile() compila el patron.
          */
-        Pattern patron2 = Pattern.compile("^([1-9]\\s[1-9])$");
-        /*
-         *Declaro el objeto br que me permite leer el archivo.
-         * BufferedReader lee el archivo linea por linea.
-         * FileReader lee el archivo.
-         * try-with-resources cierra el archivo automáticamente.
-         */
+
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-            //Declaro la variable linea que me permite leer el archivo linea por linea.
+            /* Declaro las variables que me permiten validar si se cumple el patron. */
+            boolean verificacion = false;
+
+            /* Declaro la variable linea que me permite leer el archivo linea por linea. */
             String linea;
-            //Mientras la variable línea no sea nula, se ejecuta el bucle.
+            // Mientras la variable línea no sea nula, se ejecuta el bucle.
             while ((linea = br.readLine()) != null) {
                 //Declaro el objeto m que me permite validar el patron.
                 Matcher m = patron.matcher(linea);
-                //Declaro el objeto m2 que me permite validar el patron.
-                Matcher m2 = patron2.matcher(linea);
                 //Si la línea cumple con el patron, se imprime el mensaje.
                 if (m.matches()) {
-                    System.out.println("La linea cumple con el formato nombre" + ": " + linea);
+                    verificacion = true;
+                    System.out.println("La linea cumple con el formato" + ": " + linea);
                 }
                 //Si la línea cumple con el patron, se imprime el mensaje.
-                if (m2.matches()) {
-                    System.out.println("La linea cumple con el formato edad" + ": " + linea);
-                }
+
             }
+            //Si la línea no cumple con el patron, se imprime el mensaje.
+            if(!verificacion){
+                System.err.println("No se cumple el formato");
+            }
+
+
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.getMessage();
         }
 
     }
