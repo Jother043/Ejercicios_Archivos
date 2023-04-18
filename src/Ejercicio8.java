@@ -63,8 +63,11 @@ public class Ejercicio8 {
 
             }
             //Si la línea no cumple con el patron, se imprime el mensaje.
-            if(!verificacion){
+            if (!verificacion) {
                 System.err.println("No se cumple el formato");
+            }
+            if(verificacion){
+                System.out.println("Se cumple el formato");
             }
 
 

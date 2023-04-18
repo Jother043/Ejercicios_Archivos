@@ -9,8 +9,8 @@ public class Ejercicio9 {
     public static void main(String[] args) {
 
         //Declaro el archivo que voy a leer
-        File archivo = new File("C:\\Users\\Jmiguel-Laptop\\Desktop\\matriculas.txt");
-        File archivo2 = new File("C:\\Users\\Jmiguel-Laptop\\Desktop\\MatriculasCorrectas.txt");
+        File archivo = new File("C:\\Users\\kingo\\Desktop\\matriculas.txt");
+        File archivo2 = new File("C:\\Users\\kingo\\Desktop\\MatriculasCorrectas.txt");
         //Si el archivo no existe, se crea.
         if (!archivo.exists()) {
             try {
@@ -29,15 +29,14 @@ public class Ejercicio9 {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } finally {
-                System.out.println("El archivo se ha creado correctamente");
+                System.out.println("El archivo2 se ha creado correctamente");
             }
         } else {
-            System.out.println("El archivo ya existe");
+            System.out.println("El archivo2 ya existe");
         }
         Pattern patron = Pattern.compile("^(\\d{4}\\s[^aeiouAEIOU\\d\\W_]{3})$");
         //^\p{L}+\s\d{4}-([A-Z&&[^AEIOU]]{3})$
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo));
-             BufferedWriter fw = new BufferedWriter(new FileWriter(archivo2))){
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo)); BufferedWriter fw = new BufferedWriter(new FileWriter(archivo2))) {
 
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -45,7 +44,7 @@ public class Ejercicio9 {
                 if (m.find()) {
                     fw.write(m.group(1));
                     System.out.println("La linea cumple con el formato matricula" + ": " + linea);
-                }else {
+                } else {
                     System.out.println("La linea no cumple con el formato matricula" + ": " + linea);
                 }
             }
@@ -55,6 +54,5 @@ public class Ejercicio9 {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
