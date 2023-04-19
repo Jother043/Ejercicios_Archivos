@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<personas>
+    <persona>
+        <nombre>Juan</nombre>
+        <apellido>Perez</apellido>
+        <numeroTelefono>123456789</numeroTelefono>
+        <dni>12345678A</dni>
+        <fechaNacimiento>01/01/2000</fechaNacimiento>
+    </persona>
+    <persona>
+        <nombre>Maria</nombre>
+        <apellido>Gomez</apellido>
+        <numeroTelefono>987654321</numeroTelefono>
+        <dni>87654321B</dni>
+        <fechaNacimiento>02/02/2000</fechaNacimiento>
+    </persona>
+    <persona>
+        <nombre>Pepe</nombre>
+        <apellido>Garcia</apellido>
+        <numeroTelefono>135792468</numeroTelefono>
+        <dni>24681357C</dni>
+        <fechaNacimiento>03/03/2000</fechaNacimiento>
+    </persona>
+</personas>
