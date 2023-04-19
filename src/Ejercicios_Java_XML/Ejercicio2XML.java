@@ -1,6 +1,7 @@
 package Ejercicios_Java_XML;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -13,8 +14,9 @@ import java.io.IOException;
 
 public class Ejercicio2XML {
     public static void main(String[] args) {
-
+        //Crea un objeto File que contiene la ruta del documento XML a analizar.
         File file = new File("web1.html");
+        //DocumentBuilderFactory es una clase abstracta que crea objetos DocumentBuilder para analizar documentos XML.
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = null;
         try {
@@ -39,7 +41,9 @@ public class Ejercicio2XML {
 
             for (int i = 0; i < div.getLength(); i++) {
                 if (div.item(i).getAttributes().getNamedItem("id") != null) {
-                    contador++;
+                    if (!div.item(i).getAttributes().getNamedItem("id").getTextContent().equals("")) {
+                        contador++;
+                    }
                 }
             }
 
@@ -50,7 +54,9 @@ public class Ejercicio2XML {
             System.out.println("Texto alternativo de las imágenes: ");
             int numerado = 1;
             for (int i = 0; i < img.getLength(); i++) {
-                System.out.println(numerado++ + ". " + img.item(i).getAttributes().getNamedItem("alt").getTextContent());
+                if (img.item(i).getAttributes().getNamedItem("alt") != null) {
+                    System.out.println(numerado++ + ". " + img.item(i).getAttributes().getNamedItem("alt").getTextContent());
+                }
             }
             System.out.println("*********************************************");
             /*
@@ -63,21 +69,25 @@ public class Ejercicio2XML {
             for (int i = 0; i < noticias.getLength(); i++) {
                 //Obtiene el div actual.
                 Node no = noticias.item(i);
-                //Obtiene todos los hijos del div actual.
-                NodeList noHijos = no.getChildNodes();
+
                 //Recorre los hijos del div actual.
-                for (int j = 0; j < noHijos.getLength(); j++) {
-                    //Obtiene el hijo actual.
-                    Node noHijo = noHijos.item(j);
+                Element e = (Element) no;
+                if (e.getAttribute("class").equals("noticia")) {
+                    //Obtiene todos los hijos del div actual.
+                    NodeList noHijos = no.getChildNodes();
+                    for (int j = 0; j < noHijos.getLength(); j++) {
+                        //Obtiene el hijo actual.
+                        Node noHijo = noHijos.item(j);
                     /*
                     Si el nombre del hijo actual es h2, imprime el título de la noticia.
                     Si el nombre del hijo actual es img, imprime el texto alternativo de la imagen.
                      */
-                    if (noHijo.getNodeName().equals("h2")) {
-                        System.out.println("Título: " + noHijo.getTextContent().trim());
-                    } else if (noHijo.getNodeName().equals("img")) {
-                        if (noHijo.getAttributes().getNamedItem("alt") != null) {
-                            System.out.println("Texto alternativo de la imagen: " + noHijo.getAttributes().getNamedItem("alt").getNodeValue());
+                        if (noHijo.getNodeName().equals("h2")) {
+                            System.out.println("Título: " + noHijo.getTextContent().trim());
+                        } else if (noHijo.getNodeName().equals("img")) {
+                            if (noHijo.getAttributes().getNamedItem("alt") != null) {
+                                System.out.println("Texto alternativo de la imagen: " + noHijo.getAttributes().getNamedItem("alt").getNodeValue());
+                            }
                         }
                     }
                 }
@@ -89,21 +99,36 @@ public class Ejercicio2XML {
             NodeList menu = doc.getElementsByTagName("div");
             for (int i = 0; i < menu.getLength(); i++) {
                 Node no = menu.item(i);
-                NodeList noHijos = no.getChildNodes();
-                if (no.getAttributes().getNamedItem("id").getNodeValue().equals("menu-principal")) {
+                Element e = (Element) no;
+                if (no.getNodeName().equals("div") && e.getAttribute("id").equals("menu-principal")) {
+                    NodeList noHijos = ((Element) no).getElementsByTagName("li");
                     for (int j = 0; j < noHijos.getLength(); j++) {
                         Node noHijo = noHijos.item(j);
-                        if (noHijo.getNodeName().equals("ul")) {
-                            System.out.println(noHijo.getTextContent().trim());
-                            NodeList lista = noHijo.getChildNodes();
-                            for (int k = 0; k < lista.getLength(); k++) {
-                                Node noHijo2 = lista.item(k);
-                                if (noHijo2.getNodeName().equals("li")) {
-                                    System.out.println(noHijo2.getTextContent().trim());
-                                }
-                            }
+                        if (noHijo.getNodeName().equals("li")) {
+                            System.out.println(noHijo.getTextContent());
+//
                         }
                     }
+                }
+            }
+
+            System.out.println( "*********************************************");
+
+            for(int i = 0; i < menu.getLength(); i++) {
+                Element div1 = (Element) menu.item(i);
+                if (div1.hasAttribute("class") && div1.getAttribute("class").equals("noticia")) {
+                    String titular = div1.getElementsByTagName("h2").item(0).getTextContent();
+                    String textoImg = div1.getElementsByTagName("img").item(0).getAttributes().getNamedItem("alt").getTextContent();
+                    System.out.println(titular + " " + textoImg);
+                }
+            }
+
+            for(int i = 0; i < menu.getLength(); i++) {
+                Element div2 = (Element) menu.item(i);
+                if(div2.hasAttribute("class") && div2.getAttribute("class").equals("noticia")) {
+                    String titular = div2.getElementsByTagName("h2").item(0).getTextContent();
+                    String texto = div2.getElementsByTagName("p").item(0).getTextContent();
+                    System.out.println("Titular: \n" + titular + " Texto: \n" + texto);
                 }
             }
 
