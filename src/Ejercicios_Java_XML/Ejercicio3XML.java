@@ -99,6 +99,11 @@ public class Ejercicio3XML {
                 StreamResult result2 = new StreamResult(destino);
                 transformer2.transform(source2, result2);
 
+
+                Document doc3 = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse("desayuno_saludable.xml");
+
+
+
             } catch (ParserConfigurationException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {

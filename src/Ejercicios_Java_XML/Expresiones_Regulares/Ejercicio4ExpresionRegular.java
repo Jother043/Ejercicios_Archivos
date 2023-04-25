@@ -19,26 +19,35 @@ public class Ejercicio4ExpresionRegular {
             int contador = 0;
             BufferedReader reader = new BufferedReader(new FileReader("quijote.txt"));
             String linea;
-            Pattern pattern = Pattern.compile("[razon]|[razón]");
+            Pattern pattern = Pattern.compile("([Rr]az[óo]n)");
             //Nos servirá para ir leyendo línea a línea el archivo.
+//            while ((linea = reader.readLine()) != null) {
+//                /*
+//                Con el split separamos las palabras de la línea y las guardamos en un array de String.
+//                Creamos un bucle que nos servirá para recorrer el array de String.
+//                El if nos servirá para comprobar si la palabra contiene la palabra razón.
+//                 */
+//                for (String palabra : linea.split(" ")) {
+//                    if (pattern.matcher(palabra).find()) {
+//                        contador++;
+//                    }
+//                }
+//            }
+
+            //Otra forma de hacerlo sin tener que recorrer las palabras con el for.
             while ((linea = reader.readLine()) != null) {
-                /*
-                Con el split separamos las palabras de la línea y las guardamos en un array de String.
-                Creamos un bucle que nos servirá para recorrer el array de String.
-                El if nos servirá para comprobar si la palabra contiene la palabra razón.
-                 */
-                for (String palabra : linea.split(" ")) {
-                    if (pattern.matcher(palabra).find()) {
-                        contador++;
-                    }
-                }
+
+                Matcher m = pattern.matcher(linea);
+                contador += m.results().count();
+//                m.results().forEach( (x) -> System.out.println("#" + x.group()));
+               // contador += m.results().filter(x -> x.group().contains("ó")).count();
             }
 
             System.out.println("La palabra razón se repite " + contador + " veces");
             //Cuenta cuantas tildes (sin tener en cuenta mayúsculas y minúsculas) hay en el texto y cuantas eñes.
             contador = 0;
             reader = new BufferedReader(new FileReader("quijote.txt"));
-            Pattern pattern1 = Pattern.compile("[^áéíóú]|[ñÑ]");
+            Pattern pattern1 = Pattern.compile("[áéíóúñÁÉÍÓÚÑ]");
             while ((linea = reader.readLine()) != null) {
                 String[] palabras = linea.split(" ");
                 for (String palabra : palabras) {
@@ -56,22 +65,20 @@ public class Ejercicio4ExpresionRegular {
              */
 
             reader = new BufferedReader(new FileReader("quijote.txt"));
-            BufferedWriter writer = new BufferedWriter(new FileWriter("quijote2.txt"));
-            Pattern pattern2 = Pattern.compile("[a-zA-Z]+");
+            PrintWriter writer = new PrintWriter("quijote2.txt");
 
             while ((linea = reader.readLine()) != null) {
-                Matcher m = pattern2.matcher(linea);
-                String[] palabras = linea.split(" ");
-                for (String palabra : palabras) {
-                    if (pattern2.matcher(palabra).find() && m.find()) {
-                        writer.write(m.group() + " ");
-                    }
-                }
+                writer.println(linea.replaceAll("(\\p{L}+)([0-9]+)", "$1"));
             }
 
-        } catch (
-                FileNotFoundException e) {
-            throw new RuntimeException(e);
+            //Convertir todas las palabras con la primera letra en mayuscula en un nuevo fichero.
+            reader = new BufferedReader(new FileReader("quijote.txt"));
+            writer = new PrintWriter("quijote3.txt");
+
+            while ((linea = reader.readLine()) != null) {
+                writer.println(linea.replaceAll("(^\\p{L}+)", "$1"));
+            }
+
         } catch (
                 IOException e) {
             throw new RuntimeException(e);
