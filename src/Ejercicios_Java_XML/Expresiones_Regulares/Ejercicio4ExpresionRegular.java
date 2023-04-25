@@ -1,7 +1,6 @@
 package Ejercicios_Java_XML.Expresiones_Regulares;
 
 import java.io.*;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,7 +27,7 @@ public class Ejercicio4ExpresionRegular {
 //                Creamos un bucle que nos servirá para recorrer el array de String.
 //                El if nos servirá para comprobar si la palabra contiene la palabra razón.
 //                 */
-//                for (String palabra : linea.split(" ")) {
+//                For (String palabra : linea.split(" ")) {
 //                    if (pattern.matcher(palabra).find()) {
 //                        contador++;
 //                    }
@@ -40,7 +39,7 @@ public class Ejercicio4ExpresionRegular {
 
                 Matcher m = pattern.matcher(linea);
                 contador += m.results().count();
-//                m.results().forEach( (x) -> System.out.println("#" + x.group()));
+                //m.results().forEach( (x) -> System.out.println("#" + x.group()));
                // contador += m.results().filter(x -> x.group().contains("ó")).count();
             }
 
@@ -101,7 +100,7 @@ public class Ejercicio4ExpresionRegular {
                 sb.append("\n");
             }
             //Escribimos en el archivo.
-            pw.println(sb.toString());
+            pw.println(sb);
             System.out.println("*".repeat(50));
             System.out.println("Se ha creado el fichero quijote3.txt");
             //Cerramos el archivo (Es importante cerrar el archivo para que se guarde).
