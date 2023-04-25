@@ -58,7 +58,7 @@ public class Ejercicio4ExpresionRegular {
                 }
 
             }
-
+            System.out.println("*".repeat(50));
             System.out.println("La palabra eñe se repite " + contador + " veces");
 
             /*
@@ -71,11 +71,13 @@ public class Ejercicio4ExpresionRegular {
             while ((linea = reader.readLine()) != null) {
                 writer.println(linea.replaceAll("(\\p{L}+)([0-9]+)", "$1"));
             }
+            System.out.println("*".repeat(50));
             System.out.println("Se ha creado el fichero quijote2.txt");
             writer.close();
             //Leemos el archivo.
             reader = new BufferedReader(new FileReader("quijote.txt"));
             //Creamos un printWriter para escribir en el archivo y lo llamamos quijote3.txt.
+
             PrintWriter pw = new PrintWriter("quijote3.txt");
             //Creamos un StringBuilder que nos servirá para ir concatenando las palabras en el nuevo fichero .txt.
             StringBuilder sb = new StringBuilder();
@@ -100,7 +102,8 @@ public class Ejercicio4ExpresionRegular {
             }
             //Escribimos en el archivo.
             pw.println(sb.toString());
-            System.out.println("Archivo quijote3.txt creado");
+            System.out.println("*".repeat(50));
+            System.out.println("Se ha creado el fichero quijote3.txt");
             //Cerramos el archivo (Es importante cerrar el archivo para que se guarde).
             pw.close();
             //repetimos el * 50 veces para que se vea mejor en la consola.
