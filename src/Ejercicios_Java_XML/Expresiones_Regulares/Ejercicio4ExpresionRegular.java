@@ -39,8 +39,8 @@ public class Ejercicio4ExpresionRegular {
 
                 Matcher m = pattern.matcher(linea);
                 contador += m.results().count();
-                //m.results().forEach( (x) -> System.out.println("#" + x.group()));
-               // contador += m.results().filter(x -> x.group().contains("ó")).count();
+                //m.results().forEach((x) -> System.out.println("#" + x.group()));
+                // contador += m.results().filter(x -> x.group().contains("ó")).count();
             }
 
             System.out.println("La palabra razón se repite " + contador + " veces");
@@ -121,6 +121,7 @@ public class Ejercicio4ExpresionRegular {
                     }
                 }
             }
+
             System.out.println("*".repeat(50));
             //utilizamos el reader para leer el archivo.
             reader = new BufferedReader(new FileReader("quijote.txt"));
@@ -131,8 +132,7 @@ public class Ejercicio4ExpresionRegular {
                 Matcher m = patron1.matcher(linea);
             }
 
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 

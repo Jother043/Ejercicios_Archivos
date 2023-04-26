@@ -1,3 +1,5 @@
+package Ejercicios_Nuevos_7_4;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.regex.Pattern;
@@ -6,7 +8,7 @@ public class Ejercicio1Nuevo {
 
     public static void main(String[] args) {
 
-        try(BufferedReader reader = new BufferedReader(new FileReader("quijote.txt"))){
+        try(BufferedReader reader = new BufferedReader(new FileReader("Texto_100_Palabras.txt"))){
             String linea;
             int contador = 0;
             Pattern p = Pattern.compile("\\p{L}+");
