@@ -116,19 +116,19 @@ public class Ejercicio4ExpresionRegular {
                 String[] palabras = linea.split(" ");
                 for (String palabra : palabras) {
                     //Si la palabra tiene más de 8 letras, se imprime.
-                    if (palabra.matches("(\\p{L}{8,})")) {
+                    if (palabra.matches("(\\p{L}{9,})")) {
                         System.out.println(palabra);
                     }
                 }
             }
             System.out.println("*".repeat(50));
-            //Busca aquellas frases que tengan menos de 15 palabras
+            //utilizamos el reader para leer el archivo.
             reader = new BufferedReader(new FileReader("quijote.txt"));
+            Pattern patron1 = Pattern.compile("([^\\.]+)");
+            Pattern patron2 = Pattern.compile("([^\\p{Z}+])");
+            //mientras que la línea no sea null, es decir, mientras que haya líneas que leer se ejecuta el bucle.
             while ((linea = reader.readLine()) != null) {
-                String[] palabras = linea.split(" ");
-                if (palabras.length < 15) {
-                    System.out.println(linea);
-                }
+                Matcher m = patron1.matcher(linea);
             }
 
         } catch (
