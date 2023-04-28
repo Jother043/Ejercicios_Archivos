@@ -10,9 +10,7 @@ public class Ejercicio3Nuevo {
         String palabraBuscada;
         //Creamos un contador para saber en qué línea aparece la palabra.
         int numLinea = 0;
-        try {
-            //Creamos un BufferedReader para leer el texto.
-            BufferedReader reader = new BufferedReader(new FileReader("Texto_100_Palabras.txt"));
+        try (BufferedReader reader = new BufferedReader(new FileReader("Texto_100_Palabras.txt"))){
             //Creamos un String para la línea que vamos a ir leyendo.
             String linea;
             //Pedimos al usuario que introduzca la palabra que quiere buscar.
@@ -20,7 +18,7 @@ public class Ejercicio3Nuevo {
             //Leemos la palabra que queremos buscar.
             palabraBuscada = palabra.readLine();
             //Mientras la línea no sea nula, seguimos leyendo.
-            while((linea = reader.readLine()) != null) {
+            while ((linea = reader.readLine()) != null) {
                 //Aumentamos el contador de líneas.
                 numLinea++;
                 //Si la línea contiene la palabra que queremos buscar, la mostramos.
@@ -28,10 +26,11 @@ public class Ejercicio3Nuevo {
                     System.out.println("La palabra " + palabraBuscada + " aparece en la linea " + numLinea);
                     System.out.println(linea);
                     //Si no, mostramos un mensaje diciendo que no aparece.
-                }else {
+                } else {
                     System.out.println("La palabra " + palabraBuscada + " no aparece en la linea " + numLinea);
                 }
             }
+
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
