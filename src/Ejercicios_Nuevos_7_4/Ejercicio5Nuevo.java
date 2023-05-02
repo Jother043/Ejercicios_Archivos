@@ -41,17 +41,12 @@ public class Ejercicio5Nuevo {
         try {
             File archivo = new File(DATOS_FILE);
             BufferedWriter writer = new BufferedWriter(new FileWriter(DATOS_FILE, true));
-            if (archivo.exists()) {
-                System.out.println("Introduce un texto para escribir en el fichero: ");
-                linea = sc.next();
-                writer.write(linea);
-                writer.newLine();
-                writer.flush();
-                writer.close();
-            } else {
-                System.out.println("El fichero no existe");
-                archivo.createNewFile();
-            }
+            System.out.println("Introduce un texto para escribir en el fichero: ");
+            linea = sc.next();
+            writer.write(linea);
+            writer.newLine();
+            writer.close();
+
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {

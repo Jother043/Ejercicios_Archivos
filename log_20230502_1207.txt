@@ -1,0 +1,4 @@
+sdfsdfsdf
+hola
+if (new File(LOG_FILE_NAME).length() > MAX_FILE_SIZE) {
+sdekofns`pgms`pgm`psmeg`psme`gpms`pg`psgmseg
